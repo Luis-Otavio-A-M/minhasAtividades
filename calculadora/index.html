@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
+    <title>Calculadora</title>
+</head>
+<body>
+    <div class="calculadora">
+        <div class="resultado">
+            0
+        </div>
+        <div class="teclado">
+            <span class="tecla tecla_limpar" onclick="limpar()"> C </span>
+            <span class="tecla tecla_operacao" onclick="digitarOperador('/')"> / </span>
+            <span class="tecla tecla_operacao" onclick="digitarOperador('*')"> * </span>
+            <span class="tecla tecla_operacao" onclick="digitarOperador('-')"> - </span>
+            <span class="tecla tecla_numerica" onclick="digitarNumero(7)"> 7 </span>
+            <span class="tecla tecla_numerica" onclick="digitarNumero(8)"> 8 </span>
+            <span class="tecla tecla_numerica" onclick="digitarNumero(9)"> 9 </span>
+            <span class="tecla tecla_operacao" onclick="digitarOperador('+')"> + </span>
+            <span class="tecla tecla_numerica" onclick="digitarNumero(4)"> 4 </span>
+            <span class="tecla tecla_numerica" onclick="digitarNumero(5)"> 5 </span>
+            <span class="tecla tecla_numerica" onclick="digitarNumero(6)"> 6 </span>
+            <span class="tecla tecla_operacao" onclick="digitarOperador('%')"> % </span>
+            <span class="tecla tecla_numerica" onclick="digitarNumero(1)"> 1 </span>
+            <span class="tecla tecla_numerica" onclick="digitarNumero(2)"> 2 </span>
+            <span class="tecla tecla_numerica" onclick="digitarNumero(3)"> 3 </span>
+            <span class="tecla igual" onclick="calcularResultado()"> = </span>
+            <span class="tecla zero tecla_numerica" onclick="digitarNumero(0)"> 0 </span>
+            <span class="tecla tecla_numerica" onclick="digitarNumero('.')"> , </span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ddd;
+}
+
+.tabuleiro{
+    display: grid;
+    grid-template-columns: repeat(8, 3rem);;
+    border: 1px solid black;
+    width: fit-content;
+}
+
+.tabuleiro div{
+    width: 3rem;
+    height: 3rem;
+}
+
+.tabuleiro .peca{
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    margin: 0.4rem 0 0 0.4rem;
+}
+
+.branco{
+    background-color: white;
+}
+
+.preto{
+    background-color: black;
+}
+
+.selecionavel{
+    background-color: rgb(228, 82, 82) !important;
+}
+
+button{
+    border: 0;
+}

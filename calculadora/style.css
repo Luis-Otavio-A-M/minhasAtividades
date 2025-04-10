@@ -1,0 +1,78 @@
+.calculadora{
+    position: absolute;
+    top: 17vh;
+    left: 37vw;
+    padding: 3vh 2vw;
+    background-color: #c4c4c4;
+    border-radius: 20px;
+}
+
+.resultado{
+    border: 1px black solid;
+    padding: 2vh 1vw;
+    margin-bottom: 1vh;
+    text-align: right;
+    font-size: 2rem;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.teclado{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 1rem;
+}
+
+.tecla_numerica{
+    background-color: #5c5c5f;
+}
+
+.tecla_numerica:hover{
+    background-color: #444447;
+}
+
+.tecla_operacao{
+    background-color: #60b870;
+}
+
+.tecla_operacao:hover{
+    background-color: #509b5d;
+}
+
+.tecla_limpar{
+    background-color: #fa4b4a;
+}
+
+.tecla_limpar:hover{
+    background-color: #e24444;
+}
+
+.tecla{
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    font-size: 2rem;
+    display: block;
+    text-align: center;
+}
+
+.tecla:hover{
+    cursor: pointer;
+}
+
+.igual{
+    grid-column-start: 4;
+    grid-row-start: 4;
+    grid-row-end: 6;
+    background-color: #5593f3;
+    line-height: 8rem;
+}
+
+.igual:hover{
+    background-color: #477ccc;
+}
+
+.zero{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
