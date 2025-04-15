@@ -33,6 +33,10 @@ body{
     background-color: black;
 }
 
+.contorno{
+    border: 1px solid white;
+}
+
 .selecionavel{
     background-color: rgb(228, 82, 82) !important;
 }

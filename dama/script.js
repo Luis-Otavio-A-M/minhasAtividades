@@ -1,8 +1,13 @@
-const tabuleiroMatriz = Array.from({length: 8}, () => new Array(8).fill('V'));
+const VAZIO = 'V';
+const tabuleiroMatriz = Array.from({length: 8}, () => new Array(8).fill(VAZIO));
 const SELECIONAVEL = 'selecionavel';
 const BRANCO = 'branco';
-const PRETO = 'preto'
+const BRANCO_CHAR = 'B';
+const PRETO = 'preto';
+const PRETO_CHAR = 'P';
 let isSelecionado = false;
+let pecaSelecionada = [];
+let turno = PRETO;
 
 function criarTabuleiro(){
     const tabuleiro = document.getElementsByClassName('tabuleiro')[0];
@@ -18,6 +23,11 @@ function criarTabuleiro(){
             tabuleiro.appendChild(div);
             if(atual === BRANCO) atual = PRETO;
             else atual = BRANCO;
+            div.addEventListener('click', _ => {
+                if(div.classList.contains(SELECIONAVEL))
+                    moverPeca(j, i);
+                    
+            })
         }
     }
 }
@@ -30,9 +40,8 @@ function preencherTabuleiro(){
         if(i === 24){
             i = 40;
             cor = PRETO;
-            ajuste = 1;
         } 
-        const posicao = i + (parseInt(i / 8) + ajuste) % 2;
+        const posicao = i + (parseInt(i / 8) ) % 2;
         const x  = parseInt(posicao % 8);
         const y = parseInt(posicao / 8);
         tabuleiro[posicao].appendChild(criarPeca(cor, x, y));
@@ -42,12 +51,17 @@ function preencherTabuleiro(){
 
 function criarPeca(corPeca, x, y){
     const peca = document.createElement('button');
-    tabuleiroMatriz[y][x] = corPeca === PRETO ? 'P' : 'B';
+    tabuleiroMatriz[y][x] = corPeca === PRETO ? PRETO_CHAR : BRANCO_CHAR;
     peca.classList.add('peca', corPeca);
+    if(corPeca === PRETO) peca.classList.add('contorno')
     peca.setAttribute('x', x);
     peca.setAttribute('y', y);
-    peca.addEventListener('click', _ => verificarMovimentos(
-        x, y, corPeca));
+    peca.addEventListener('click', _ => {
+        let atualX = parseInt(peca.getAttribute('x'));
+        let atualY = parseInt(peca.getAttribute('y'));
+        verificarMovimentos(
+            atualX, atualY, corPeca)
+        })
     return peca;
 }
 
@@ -62,24 +76,30 @@ function verificarMovimentos(x, y, corPeca){
         desabilitarPecas(x, y);
     }
     isSelecionado = !isSelecionado;
+    pecaSelecionada = isSelecionado ? [x, y, corPeca] : [];
 }
 
 function getMovimentosPossiveis(x, y, corPeca){
     let movimento;
     let camposJogada = [];
-    if(corPeca === 'preto')
+    if(corPeca !== turno){
+        console.log(corPeca, turno);
+        return camposJogada;
+    }
+
+    if(corPeca === PRETO)
         movimento = -1;
     else
         movimento = 1;
-
-    if(x < 7  && (0 <= y+movimento && y+movimento <= 7) &&tabuleiroMatriz[y+movimento][x+1] === 'V'){
+    if(x < 7  && (0 <= y+movimento && y+movimento <= 7) && tabuleiroMatriz[y+movimento][x+1] === VAZIO){
         camposJogada.push([x+1, y + movimento]);
     }
-    if(x > 0 && (0 < y+movimento && y+movimento < 7) && tabuleiroMatriz[y + movimento][x-1] === 'V'){
+    if(x > 0 && (0 <= y+movimento && y+movimento <= 7) && tabuleiroMatriz[y + movimento][x-1] === VAZIO){
         camposJogada.push([x-1, y + movimento]);
     }
     return camposJogada;
 }
+
 
 function desabilitarPecas(x, y){
     const pecas = document.querySelectorAll('.peca');
@@ -114,4 +134,25 @@ function removerSelecionaveis(){
     for(let i = 0; i < selecionaveis.length; i++){
         selecionaveis[i].classList.remove(SELECIONAVEL);
     }
+}
+
+function moverPeca(proximoX, proximoY){
+    const [x, y, corPeca] = pecaSelecionada;
+    const peca = document.querySelector(`.peca[x="${x}"][y="${y}"]`);
+    const posicaoAtual = document.querySelector(`.tabuleiro > div[x="${x}"][y="${y}"]`);
+    const posicaoFutura = document.querySelector(`.tabuleiro > div[x="${proximoX}"][y="${proximoY}"]`)
+    
+    posicaoAtual.removeChild(peca);
+    peca.setAttribute('x', proximoX);
+    peca.setAttribute('y', proximoY);
+    posicaoFutura.appendChild(peca);
+
+    tabuleiroMatriz[y][x] = VAZIO;
+    tabuleiroMatriz[proximoY][proximoX] = corPeca === PRETO ? PRETO_CHAR : BRANCO_CHAR;
+
+    isSelecionado = false;
+    pecaSelecionada = [];
+    turno = PRETO === turno ? BRANCO : PRETO;
+    removerSelecionaveis();
+    habilitarPecas();
 }
